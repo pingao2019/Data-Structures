@@ -1,5 +1,9 @@
 """Each ListNode holds a reference to its previous node
 as well as its next node in the List."""
+# reference: https://stackabuse.com/doubly-linked-list-with-python-examples/
+
+
+
 class ListNode:
     def __init__(self, value, prev=None, next=None):
         self.value = value
@@ -48,19 +52,56 @@ class DoublyLinkedList:
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
     def add_to_head(self, value):
-        pass
+        # wrap the `data` in a Node instance 
+        #new_node = Node(data)
+        #Todo
+        # what about the empty case, when both self.head = None and self.tail = None?
+        if self.node is None:
+            new_node = Node(data)
+            self.node = new_node
+            print("node inserted")
+            return
+        else:
+            new_node = Node(data)
+            new_node.next = self.node
+            self.node.prev = new_node
+            self.node = new_node
+
+                
+        # non-empty linked list case 
+        # else:
+        #     # call set_next with the new_node on the current tail node 
+        #     self.head.insert_before(new_node)
+        #     # update self.tail to point to the new last Node in the linked list 
+        #     self.tail = new_node
 
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
     def remove_from_head(self):
-        pass
+        if self.node is None:
+            print("The list has no element to delete")
+            return 
+        if self.node.next is None:
+            self.node = None
+            return
+        self.node = self.node.next
+        self.prev = None
 
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
     def add_to_tail(self, value):
-        pass
+        if self.node is None:
+            new_node = Node(data)
+            self.node = new_node
+            return
+        n = self.node
+        while n.next is not None:
+            n = n.next
+        new_node = Node(data)
+        n.next = new_node
+        new_node.prev = n
 
     """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.

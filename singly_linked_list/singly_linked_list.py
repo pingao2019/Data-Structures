@@ -12,7 +12,7 @@ class Node:
         return self.next_node
 
     def set_next(self, new_next):
-        # sets this node's `next` reference to `new_next`                                  
+        # sets this node's `next` reference to `new_next`
         self.next_node = new_next
 
 class LinkedList:
@@ -50,6 +50,7 @@ class LinkedList:
     What's the runtime of this method?
     '''
     def remove_tail(self):
+        # if the linked list is empty 
         if self.tail is None:
             return None
         # save the tail Node's data
@@ -75,7 +76,10 @@ class LinkedList:
 
             # `current` is now pointing at the Node right
             # before the tail Node
+            self.tail = None
             self.tail = current
+            # self.tail.set_next(None)
+
         
         return data
 
@@ -117,7 +121,8 @@ class LinkedList:
         # we update what this Node points to as we traverse the linked list 
         current = self.head 
 
-        # traverse the linked list so long as `current` is referring to a Node 
+        # traverse the linked list so long as `current` is referring 
+        # to a Node 
         while current is not None:
             # check if the Node that `current` is pointing at is holding
             # the data we're looking for 
