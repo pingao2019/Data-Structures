@@ -8,6 +8,7 @@ class ListNode:
     self.prev = prev
     self.next = next
 
+
   """Wrap the given value in a ListNode and insert it
   after this node. Note that this node could already
   have a next node it is point to."""
@@ -50,18 +51,24 @@ class DoublyLinkedList:
 
 
   def add_to_head(self, value):
-    new_head = ListNode(value,None,self.head)
-    if self.head == None and self.tail == None:
-      self.head = new_head
-      self.tail = new_head
+    new_node = ListNode(value,None)
+    self.length += 1
+    if self. == None and self.tail == None:
+      self.head = new_node
+      self.tail = new_node
       self.head.prev = None
       self.head.next = None
-      self.length = 1
+      
     else:
-      self.head.prev = new_head
-      new_head.prev = None
-      self.head = new_head
-      self.length += 1
+        # the newn_node becomes head
+        # set the current head's prev=the new_node
+        new_node.next=self.head
+        # set the new node's next =current head
+        self.head.prev = new_node 
+        #reassign self.head to new_node
+        # new_head.prev = None
+        self.head = new_node
+      
   
 
   """Removes the List's current head node, making the
@@ -75,9 +82,11 @@ class DoublyLinkedList:
       self.tail = None
       self.length = 0
     else:
-      self.head = self.head.next
-      self.head.prev.delete()
-      self.length -= 1
+      self.delete(self.head)
+
+      # self.head = self.head.next
+      # self.head.prev.delete()
+      # self.length -= 1
     return removed
   
 
@@ -87,17 +96,19 @@ class DoublyLinkedList:
 
 
   def add_to_tail(self, value):
-    new_tail = ListNode(value, self.tail)
+    new_node = ListNode(value, None, None)
+    self.length += 1
     if self.head == None and self.tail == None:
-      self.head = new_tail
-      self.tail = new_tail
-      self.head.prev = None
-      self.head.next = None
-      self.length = 1
+      self.head = new_node
+      self.tail = new_node
+      # self.head.prev = None
+      # self.head.next = None
+      
     else:
-      self.tail.next = new_tail
-      self.tail = new_tail
-      self.length += 1
+      new_node. prev=self.tail 
+      self.tail.next = new_node
+      self.tail= new_node
+      
   
   """Removes the List's current tail node, making the 
     current tail's previous node the new tail of the List.
@@ -131,9 +142,14 @@ class DoublyLinkedList:
     if self.length > 1 and node != self.tail:
       self.tail.insert_after(node.value)
       self.tail = self.tail.next
+    
+    if node == self.tail:
+      return None
+    value =node.value
     if node == self.head: 
       self.head = node.next
     node.delete()
+    
   
   """Removes a node from the list and handles cases where
     the node was the head or the tail"""
@@ -154,7 +170,7 @@ class DoublyLinkedList:
 
 
     """Returns the highest value currently in the list"""
-    
+
   def get_max(self):
     max_val = -float("inf")
     location = self.head

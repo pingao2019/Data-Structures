@@ -17,6 +17,7 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
+        
         # compare the value to the root's value to determine which direction
         # we're gonna go in 
         # if the value < root's value 
@@ -28,7 +29,7 @@ class BSTNode:
                 # then self.left is a Node 
                 # now what?
                 self.left.insert(value)
-            else:
+            else: # no self.left node
                 # then we can park the value here
                 self.left = BSTNode(value)
         # else the value >= root's value 
@@ -45,16 +46,47 @@ class BSTNode:
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        if value== self.value:
+            return True
+        elif value< self.value:
+            if self.left:
+                self.left.contains(value)
+                return True
+            else:
+                return False
+        else:
+            # go right
+            # how do we go right? 
+            # we have to check if there is another node on the right side 
+            if self.right:
+                # then self.right is a Node 
+                self.right.contains(value)
+                return True
+            else:
+                #the tree doesn't contain the target value there for False
+                return False
 
+        
+    
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # go to right, if nothing right to the value than the root must be largest value
+        if not self.right:
+            return self.value
+        else:
+            # a recursive call,,  if find an answer then  return a recursive call,return backinto the next level until you hit 
+            return self.right.get_max()
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        fn(self.value)
 
+        if self.left:
+            self.left.for_each(fn)
+        if self.right:
+            self.right.for_each(fn)
+
+    
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
