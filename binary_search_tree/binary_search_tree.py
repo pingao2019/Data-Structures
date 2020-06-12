@@ -43,29 +43,7 @@ class BSTNode:
             else:
                 self.right = BSTNode(value)
 
-    # Return True if the tree contains the value
-    # False if it does not
-    def contains(self, target):
-        if value== self.value:
-            return True
-        elif value< self.value:
-            if self.left:
-                self.left.contains(value)
-                return True
-            else:
-                return False
-        else:
-            # go right
-            # how do we go right? 
-            # we have to check if there is another node on the right side 
-            if self.right:
-                # then self.right is a Node 
-                self.right.contains(value)
-                return True
-            else:
-                #the tree doesn't contain the target value there for False
-                return False
-
+    
             # Return True if the tree contains the value
         # False if it does not
     def contains(self, target):
@@ -162,13 +140,6 @@ class BSTNode:
 	
         
 
-
-
-    
-    
-
-    
-
     
     # Part 2 -----------------------
 
@@ -181,25 +152,66 @@ class BSTNode:
             print(node.value)
         if node.right:
             self.in_order_print(node.right)
+			print(node.value)
 
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        #using queue
+
+		q = deque()
+		# add the first node to our q 
+		q.append(self)
+
+		while len(q) > 0:
+			current_node = q.popleft()
+			if current_node.left:
+				q.append(current_node.left)
+				if current_node.right:
+					q.append(current_node.right)
+					print(current_node.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # using stack
+        stack = []
+							 
+		stack.append(self)
+							 
+		while len(stack) > 0: 
+			# pop off the stack 
+			current_node = stack.pop()
+								# add its children to the stack 
+								# add the right child first and left child second
+								# to ensure that left is popped off the stack first 
+			if current_node.right:
+				stack.append(current_node.right)
+				if current_node.left:
+					stack.append(current_node.left)
+										# call the fn function on self.value 
+					print(current_node.value))
 
+
+        
     # Stretch Goals -------------------------
     # Note: Research may be required
 
     # Print Pre-order recursive DFT
+	# reference:https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
     def pre_order_dft(self, node):
-        pass
+        print(node.value)
+        if node.left is not None:
+            node.left.pre_order_dft(node.left)
+        if node.right is not None:
+            node.right.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
+
     def post_order_dft(self, node):
-        pass
+        if node.left is not None:
+            self.left.post_order_dft(node.left)
+        if node.right is not None:
+            self.right.post_order_dft(node.right)
+        print(node.value)
